@@ -77,6 +77,8 @@ resource "aws_nat_gateway" "nat" {
   tags = {
     Name = "nat-${local.vpc_name}"
   }
+
+    depends_on = [aws_internet_gateway.igw]
 }
 
 resource "aws_route_table" "private_rt" {
