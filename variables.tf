@@ -19,11 +19,6 @@ variable "private_subnets_count" {
   default = 2
 }
 
-variable "rds_subnets_count" {
-  type    = number
-  default = 2
-}
-  
 
 variable "availability_zones" {
   type    = list(any)

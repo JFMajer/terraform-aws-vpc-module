@@ -14,9 +14,3 @@ output "private_subnets_ids" {
   value = aws_subnet.private_subnets.*.id
   description = "value of the private subnets ids"
 }
-
-# rds subnet ids
-output "rds_subnets_ids" {
-  value = aws_subnet.rds_subnets.*.id
-  description = "value of the rds subnets ids"
-}
