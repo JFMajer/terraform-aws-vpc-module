@@ -6,7 +6,7 @@ variable "vpc_cidr" {
 
 variable "name_prefix" {
   type    = string
-  default = "dev-"
+  default = "dev"
 }
 
 variable "public_subnets_count" {
@@ -18,6 +18,12 @@ variable "private_subnets_count" {
   type    = number
   default = 2
 }
+
+variable "rds_subnets_count" {
+  type    = number
+  default = 2
+}
+  
 
 variable "availability_zones" {
   type    = list(any)

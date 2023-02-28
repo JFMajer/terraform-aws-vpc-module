@@ -99,3 +99,15 @@ resource "aws_route_table_association" "private_rt_association" {
   subnet_id      = element(aws_subnet.private_subnets.*.id, count.index)
   route_table_id = aws_route_table.private_rt.id
 }
+
+resource "aws_subnet" "rds_subnets" {
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.${count.index * 2 + 3}.0/24"
+  availability_zone = element(var.availability_zones, count.index)
+
+  count = var.rds_subnets_count
+
+  tags = {
+    Name = "rds_10.0.${count.index * 2 + 3}.0_${element(var.availability_zones, count.index)}"
+  }
+} 
