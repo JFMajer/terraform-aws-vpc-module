@@ -14,3 +14,13 @@ output "private_subnets_ids" {
   value = aws_subnet.private_subnets.*.id
   description = "value of the private subnets ids"
 }
+
+output "rds_subnet_group_id" {
+  value = aws_db_subnet_group.rds_mysql.id
+  description = "value of the rds subnet group id"
+}
+
+output "rds_subnet_group_name" {
+  value = aws_db_subnet_group.rds_mysql.name
+  description = "value of the rds subnet group name"
+}

@@ -90,7 +90,7 @@ resource "aws_route_table" "private_rt" {
   }
 
   tags = {
-    Name = "private_rt_${local.vpc_name}"
+    Name = "private-rt-${local.vpc_name}"
   }
 }
 
@@ -98,4 +98,13 @@ resource "aws_route_table_association" "private_rt_association" {
   count          = var.private_subnets_count
   subnet_id      = element(aws_subnet.private_subnets.*.id, count.index)
   route_table_id = aws_route_table.private_rt.id
+}
+
+resource "aws_db_subnet_group" "rds_mysql" {
+  name       = "rds-mysql-${local.vpc_name}"
+  subnet_ids = aws_subnet.private_subnets.*.id
+
+  tags = {
+    Name = "rds-mysql-${local.vpc_name}"
+  }
 }
