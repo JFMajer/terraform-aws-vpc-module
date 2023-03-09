@@ -13,25 +13,25 @@ resource "aws_vpc" "vpc" {
 
 resource "aws_subnet" "public_subnets" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "10.0.${count.index * 2 + 1}.0/24"
+  cidr_block        = "10.0.${count.index + 10}.0/24"
   availability_zone = element(var.availability_zones, count.index)
 
   count = var.public_subnets_count
 
   tags = {
-    Name = "public_10.0.${count.index * 2 + 1}.0_${element(var.availability_zones, count.index)}"
+    Name = "public_10.0.${count.index + 10}.0_${element(var.availability_zones, count.index)}"
   }
 }
 
 resource "aws_subnet" "private_subnets" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "10.0.${count.index * 2}.0/24"
+  cidr_block        = "10.0.${count.index + 20}.0/24"
   availability_zone = element(var.availability_zones, count.index)
 
   count = var.private_subnets_count
 
   tags = {
-    Name = "private_10.0.${count.index * 2}.0_${element(var.availability_zones, count.index)}"
+    Name = "private_10.0.${count.index + 20}.0_${element(var.availability_zones, count.index)}"
   }
 }
 
@@ -100,9 +100,21 @@ resource "aws_route_table_association" "private_rt_association" {
   route_table_id = aws_route_table.private_rt.id
 }
 
+resource "aws_subnet" "private_rds_subnets" {
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.${count.index + 30}.0/24"
+  availability_zone = element(var.availability_zones, count.index)
+
+  count = var.private_subnets_count
+
+  tags = {
+    Name = "private_rds_10.0.${count.index + 30}.0_${element(var.availability_zones, count.index)}"
+  }
+}
+
 resource "aws_db_subnet_group" "rds_mysql" {
   name       = "rds-mysql-${local.vpc_name}"
-  subnet_ids = aws_subnet.private_subnets.*.id
+  subnet_ids = aws_subnet.private_rds_subnets.*.id
 
   tags = {
     Name = "rds-mysql-${local.vpc_name}"
