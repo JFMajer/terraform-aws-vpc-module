@@ -34,3 +34,6 @@ override.tf.json
 terraform.rc
 
 **/.vscode
+
+# Ignore lock file from examples directory
+examples/terraform.lock.hcl
