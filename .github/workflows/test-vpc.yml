@@ -37,10 +37,10 @@ jobs:
         env:
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
           AWS_REGION: ${{ vars.AWS_REGION }}
-          DYNAMO_TABLE: ${{ secrets.DYNAMO_TABLE }}
-          ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           ENV: ${{ vars.ENV }}
+          DYNAMO_TABLE: ${{ secrets.DYNAMO_TABLE }}
+          ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}     
       - name: test-vpc
         run: |
-          cd tests
+          cd test
           go test -v -timeout 5m
