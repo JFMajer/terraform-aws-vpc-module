@@ -6,11 +6,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'modules/vpc/**'
-      - 'tests/vpc/**'
-      - '.github/workflows/test-vpc.yml'
-
 
 jobs:
   test-vpc:
